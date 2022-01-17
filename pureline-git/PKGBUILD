@@ -1,3 +1,5 @@
+# Maintainer: Jeremias Pettinen <hi@jeremi.as>
+
 _pkgname=pureline
 pkgname=pureline-git
 pkgver=r215.48f6161
@@ -10,7 +12,7 @@ depends=('sh')
 provides=('bash-pureline')
 makedepends=('git')
 source=(git://github.com/pettinen/pureline)
-md5sums=('SKIP')
+sha256sums=('SKIP')
 
 pkgver() {
   cd "$_pkgname"
@@ -22,5 +24,5 @@ package() {
   install -D -m644 -t "$pkgdir/usr/share/$_pkgname/" pureline
   install -D -m644 -t "$pkgdir/usr/share/$_pkgname/configs/" configs/*.conf
   install -D -m644 -t "$pkgdir/usr/share/$_pkgname/segments/" segments/*
-  install -D -m644 -t "$pkgdir/usr/share/licenses/$_pkgname/" LICENSE.md
+  install -D -m644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE.md
 }
