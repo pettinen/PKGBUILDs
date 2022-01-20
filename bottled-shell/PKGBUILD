@@ -1,0 +1,31 @@
+# Maintainer: Jeremias Pettinen <hi@jeremi.as>
+
+_pkgname=bottled-shell
+pkgname=bottled-shell-git
+pkgver=r15.dd0e076
+pkgrel=1
+pkgdesc="Run systemd in WSL2"
+arch=('x86_64')
+url='https://github.com/lungothrin/bottled-shell'
+license=('MIT')
+depends=('gcc-libs')
+makedepends=('cargo' 'git')
+source=('git://github.com/lungothrin/bottled-shell')
+sha256sums=('SKIP')
+
+pkgver() {
+  cd "$_pkgname"
+  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+build() {
+  cd "$_pkgname"
+  cargo build --release --locked --all-features
+}
+
+package() {
+  cd "$_pkgname"
+  install -Dm6755 target/release/bottled "$pkgdir/usr/bin/bottled"
+  install -Dm6755 target/release/bottled-shell "$pkgdir/usr/bin/bottled-shell"
+  install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE
+}
